@@ -1,0 +1,72 @@
+@mixin phone {
+  @media (max-width: 599px) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+@mixin not-tablet {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+@mixin mini {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: 1800px) {
+    @content;
+  }
+}
+@mixin not-desktop {
+  @media (max-width: 1800px) {
+    @content;
+  }
+}
+@mixin not-mini {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+* {
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+body {
+  background: #111;
+}
+a {
+  text-decoration: none;
+}
+table {
+  border-collapse: collapse;
+}
+
+.dashboard {
+  display: flex;
+  width: 100%;
+}
+
+@import "web-channels";
+@import "shows";
+@import "filters";
+@import "types";
+@import "tabs";

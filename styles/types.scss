@@ -1,0 +1,34 @@
+.show-types {
+  position: fixed;
+  top: 0;
+  left: 0;
+  left: 340px;
+  height: 50px;
+  width: calc(100% - 340px - 400px);
+
+  display: none;
+
+  @include desktop {
+    display: block;
+  }
+
+  &-list {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    &-item {
+      cursor: pointer;
+      color: #666;
+      font-size: 15px;
+      padding: 3px 10px;
+      transition: ease all 111ms;
+      &:hover {
+        color: #999;
+      }
+      &.active {
+        color: red;
+      }
+    }
+  }
+}

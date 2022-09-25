@@ -1,0 +1,93 @@
+.filters {
+  position: fixed;
+  width: 260px;
+  background: #1e1e1e;
+  height: 100%;
+  overflow: auto;
+  left: 80px;
+  padding: 100px 30px;
+
+  &-close {
+    display: none;
+    @include phone {
+      display: block;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      border-radius: 15px;
+      background: #000;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 5px;
+    }
+  }
+
+  .is-show-type {
+    display: none;
+    @include not-desktop {
+      display: flex;
+    }
+  }
+
+  @include phone {
+    display: none;
+    &.open {
+      display: block;
+      width: calc(100% - 70px);
+      left: 70px;
+      z-index: 500;
+      padding-top: 50px;
+    }
+  }
+  &-group {
+    &-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 25px;
+
+      &-reset {
+        width: 100%;
+        border: 0px;
+        appearance: none;
+        padding: 10px 0px;
+        font-size: 13px;
+        color: #ddd;
+        background: transparent;
+        text-align: left;
+        cursor: pointer;
+      }
+      &-title {
+        font-size: 14px;
+        font-weight: 400;
+        color: #bbb;
+        margin-bottom: 4px;
+      }
+      &-input {
+        input {
+          background: #292929;
+          color: #ddd;
+          appearance: none;
+          font-size: 18px;
+          padding: 10px 10px;
+          width: 100%;
+          border: 0px;
+          &:focus {
+            outline: none;
+          }
+        }
+        select {
+          background: #292929;
+          color: #ddd;
+          appearance: none;
+          font-size: 18px;
+          padding: 10px 10px;
+          width: 100%;
+          border: 0px;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}
