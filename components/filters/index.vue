@@ -242,16 +242,17 @@ export default {
     closeFilter() {
       this.$nuxt.$emit("closeFilter");
     },
-    search() {
-      this.reset();
-      this.$nuxt.$emit("search", this.keyword);
+    search(keyword) {
+      this.reset(true);
+      this.$nuxt.$emit("search", keyword);
+      this.keyword = keyword;
     },
     key(key) {
       if (key.key == "Enter") {
-        this.search();
+        this.search(key.target.value);
       }
     },
-    reset() {
+    reset(ping) {
       this.filter.genre = "";
       this.filter.language = "";
       this.filter.rating = "";
@@ -259,7 +260,7 @@ export default {
       this.filter.network = "";
       this.filter.country = "";
       this.filter.sort = 1;
-      this.$nuxt.$emit("filter", this.filter);
+      if (!ping) this.$nuxt.$emit("filter", this.filter);
     },
     set(type, e) {
       this.filter[type] = e.target.value;
