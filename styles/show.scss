@@ -1,0 +1,155 @@
+.show {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  padding-top: 50px;
+
+  &-left {
+    width: 50%;
+  }
+  &-image {
+    width: 100%;
+    text-align: right;
+    padding-right: 50px;
+    img {
+      max-height: 80vh;
+    }
+    @include not-tablet {
+      padding-right: 0px;
+      text-align: center;
+      img {
+        max-height: 50vh;
+      }
+    }
+  }
+  &-right {
+    width: 50%;
+  }
+
+  @include not-tablet {
+    flex-direction: column;
+    justify-content: flex-start;
+    &-left,
+    &-right {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+    }
+  }
+
+  &-title {
+    font-weight: 500;
+    font-size: 30px;
+    color: #fff;
+    margin: 0px;
+    @include not-tablet {
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+  &-genres {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    @include not-tablet {
+      justify-content: center;
+    }
+    &-item {
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 12px;
+      margin-right: 5px;
+      background: #222;
+      color: #bbb;
+      user-select: none;
+    }
+  }
+  &-summary {
+    margin-top: 10px;
+    max-width: 760px;
+    text-align: justify;
+    font-size: 14;
+    line-height: 1.4;
+    color: #bbb;
+    @include not-tablet {
+      max-width: 560px;
+    }
+    p:first-child {
+      margin-top: 0px;
+    }
+  }
+  &-table {
+    @include not-tablet {
+      width: 100%;
+      max-width: 560px;
+    }
+    td {
+      color: #bbb;
+      &:first-child {
+        padding-right: 50px;
+      }
+      @include phone {
+        font-size: 12px;
+      }
+      &:last-child {
+        color: #eee;
+      }
+      a {
+        color: #eee;
+      }
+    }
+  }
+
+  &-button {
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    text-align: center;
+    transition: ease all 111ms;
+    border-radius: 3px;
+    margin-top: 10px;
+    user-select: none;
+    color: #111;
+    margin-right: 10px;
+    &last-child {
+      margin-right: 0px;
+    }
+    &:active {
+      transform: translateY(2px);
+    }
+
+    &.watch {
+      background: #eee;
+      &:hover {
+        background: #fff;
+      }
+    }
+
+    &.imdb {
+      background: rgb(229, 182, 21);
+      &:hover {
+        background: rgb(255, 205, 42);
+      }
+    }
+  }
+
+  &-footer {
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    padding-bottom: 100px;
+    @include not-tablet {
+      width: 100%;
+      max-width: 560px;
+    }
+  }
+}

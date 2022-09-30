@@ -1,66 +1,131 @@
 <template>
-  <div
-    class="shows-list"
-    :class="{ hasTabs: tabs.length > 0 }"
-    v-if="filter.channel"
-  >
-    <ShowsListBig :loading="loading" :list="list" />
+  <div class="shows-list">
+    <div class="shows-list-group" v-show="searching">
+      <div class="shows-list-group-title">Searching for {{ keyword }}</div>
+      <ShowsLoading v-if="searchLoading" />
+      <ShowsNotFound v-else-if="notFound" />
+      <ShowsSlider v-else :list="searchList" />
+    </div>
+    <div class="shows-list-group" v-for="group in groups" :key="group.title">
+      <div class="shows-list-group-title">{{ group.title }}</div>
+      <ShowsSlider v-if="!loading" :list="$getShows(group, list)" />
+      <ShowsLoading v-else />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  fetch() {},
-  props: ["filter"],
-  computed: {},
+  fetch() {
+    this.get();
+  },
+  props: [],
+  computed: {
+    searching() {
+      return this.keyword.length > 2;
+    },
+    notFound() {
+      return this.searchList.length <= 0;
+    },
+  },
   created() {
-    this.$nuxt.$on("filter", (response) => {
-      this.get();
-    });
     this.$nuxt.$on("search", (response) => {
-      this.search(response);
-    });
-    this.$nuxt.$on("tabsUpdated", (response) => {
-      this.tabs = response;
+      this.keyword = response;
+      this.search();
     });
   },
   beforeDestroy() {
-    this.$nuxt.$off("filter");
     this.$nuxt.$off("search");
-    this.$nuxt.$off("tabsUpdated");
   },
   methods: {
-    search(keyword) {
-      this.loading = true;
-      this.$api
-        .$post("/api/search", {
-          keyword: keyword,
-        })
-        .then((response) => {
-          if (response.success) {
-            this.list = response.list;
-            this.loading = false;
-          }
+    search() {
+      if (!this.searching) return false;
+      this.searchLoading = true;
+      this.$maze.$get("search/shows?q=" + this.keyword, {}).then((response) => {
+        var list = response.map((e) => {
+          return e.show;
         });
+        this.searchList = list;
+        this.searchLoading = false;
+      });
     },
     get() {
       this.loading = true;
-      this.$api
-        .$post(`/api/shows`, {
-          filter: this.filter,
-        })
-        .then((response) => {
-          this.list = response.list;
-          this.loading = false;
-        });
+
+      this.$maze.$get("shows", {}).then((response) => {
+        this.list = response;
+        this.loading = false;
+      });
     },
   },
   data() {
     return {
-      channel: null,
+      searchLoading: false,
+      searchList: [],
+      groupShows: {},
+      swiperOptions: {
+        freeMode: true,
+        slidesPerGroup: 2,
+        navigation: {
+          nextEl: ".swiper-nav-next",
+          prevEl: ".swiper-nav-prev",
+        },
+        breakpoints: {
+          300: {
+            slidesPerView: 2,
+            spaceBetween: 0,
+          },
+          540: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          800: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          },
+          1000: {
+            slidesPerView: 5,
+            spaceBetween: 30,
+          },
+          1200: {
+            slidesPerView: 6,
+            spaceBetween: 30,
+          },
+          1500: {
+            slidesPerView: 7,
+            spaceBetween: 30,
+          },
+        },
+      },
+      keyword: "",
+      groups: [
+        {
+          title: "Best rated",
+          filter: "rating",
+        },
+        {
+          title: "Drama",
+          filter: "genre",
+        },
+        {
+          title: "Comedy",
+          filter: "genre",
+        },
+        {
+          title: "Sports",
+          filter: "genre",
+        },
+        {
+          title: "Action",
+          filter: "genre",
+        },
+        {
+          title: "Adventure",
+          filter: "genre",
+        },
+      ],
       loading: true,
       list: [],
-      tabs: [],
     };
   },
 };

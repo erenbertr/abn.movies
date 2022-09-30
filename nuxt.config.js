@@ -39,7 +39,9 @@ export default {
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
-        '~/plugins/axios',
+        { src: '~/plugins/swiper.js', mode: 'client' },
+        '~/plugins/maze',
+        '~/plugins/utils',
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -52,22 +54,11 @@ export default {
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
         '@nuxtjs/axios',
-        '@nuxtjs/proxy',
-        '@nuxtjs/moment',
     ],
 
     axios: {
-        proxy: true,
     },
 
-    proxy: {
-        '/api': {
-            target: 'http://alora.api/',
-            pathRewrite: {
-                '^/api': '/'
-            }
-        }
-    },
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
         publicPath: '/nuxt/',

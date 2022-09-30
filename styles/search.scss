@@ -1,0 +1,52 @@
+.search {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 400px;
+  max-width: 600px;
+  margin: 0px auto;
+
+  @include phone {
+    height: 250px;
+  }
+
+  h1 {
+    font-size: 32px;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    @include phone {
+      font-size: 24px;
+    }
+  }
+  input {
+    margin-top: 10px;
+    border: 1px solid #181818;
+    font-size: 22px;
+    background: #0b0b0b;
+    color: #bbb;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+    outline: 0;
+    border-radius: 5px;
+    appearance: none;
+    letter-spacing: 1px;
+    font-weight: 500;
+    max-width: 450px;
+    box-shadow: 0px 0px 150px rgba(255, 0, 0, 0.257);
+    &:focus {
+      outline: 0;
+    }
+  }
+}
+
+.not-found {
+  padding: 100px 0px;
+  font-size: 25px;
+  font-weight: 200;
+  color: #555;
+}
